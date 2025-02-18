@@ -1,0 +1,215 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:controls="clr-namespace:Material.Styles.Controls;assembly=Material.Styles"
+             xmlns:converters="clr-namespace:NeoBoxLauncher.Extensions.Converters"
+             xmlns:dialogs="clr-namespace:NeoBoxLauncher.ViewModels.Dialogs"
+             xmlns:neoBoxLauncher="clr-namespace:NeoBoxLauncher"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="NeoBoxLauncher.Dialogs.GameCardDialog"
+             Padding="10">
+    <d:UserControl.DataContext>
+        <dialogs:GameCardDialogViewModel />
+    </d:UserControl.DataContext>
+
+    <UserControl.Resources>
+        <converters:AddDoubleValueConverter x:Key="AddDoubleValueConverter" />
+    </UserControl.Resources>
+
+    <Grid
+        ColumnDefinitions="*"
+        RowDefinitions="Auto,*,Auto"
+        Width="{Binding RelativeSource={RelativeSource FindAncestor,
+            AncestorType={x:Type neoBoxLauncher:MainWindow}},
+            Path=Width,
+            Converter={StaticResource AddDoubleValueConverter},
+            ConverterParameter=-200}"
+        Height="{Binding RelativeSource={RelativeSource FindAncestor,
+            AncestorType={x:Type neoBoxLauncher:MainWindow}},
+            Path=Height,
+            Converter={StaticResource AddDoubleValueConverter},
+            ConverterParameter=-200}"
+        Margin="10">
+        <Border
+            Grid.Row="0"
+            Margin="0 0 0 10"
+            Padding="-20 -20 -20 0">
+            <Grid ColumnDefinitions="*" RowDefinitions="120">
+                <Image
+                    Source="{Binding Game.ImageCached.Bitmap}"
+                    IsVisible="{Binding Game.ImageCached.Exist}"
+                    Stretch="UniformToFill" />
+
+                <Image
+                    Source="{Binding ResourceService.BitmapFade}"
+                    IsVisible="{Binding Game.ImageCached.Exist}"
+                    Stretch="Fill" />
+
+                <Grid
+                    ColumnDefinitions="Auto,*,Auto"
+                    Margin="20 20 20 5">
+                    <StackPanel
+                        Grid.Column="0"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Bottom">
+                        <TextBlock
+                            Classes="Headline4"
+                            Text="{Binding Game.Title}" />
+
+                        <Button
+                            Command="{Binding LaunchGameCommand}"
+                            CommandParameter="{Binding Game}"
+                            Classes="Flat">
+                            <avalonia:MaterialIcon Kind="Play" Width="24" Height="24" />
+                            <ToolTip.Tip>
+                                <StackPanel>
+                                    <TextBlock Classes="header">Запустить</TextBlock>
+                                </StackPanel>
+                            </ToolTip.Tip>
+                        </Button>
+                    </StackPanel>
+
+                    <Button
+                        Grid.Column="2"
+                        Command="{Binding LikeGameCommand}"
+                        CommandParameter="{Binding Game}"
+                        Classes="Flat"
+                        VerticalAlignment="Bottom">
+                        <avalonia:MaterialIcon
+                            Kind="{Binding Game.FavoriteIcon}"
+                            Width="24" Height="24" />
+                        <ToolTip.Tip>
+                            <StackPanel>
+                                <TextBlock Classes="header">Избранное</TextBlock>
+                            </StackPanel>
+                        </ToolTip.Tip>
+                    </Button>
+                </Grid>
+            </Grid>
+        </Border>
+
+        <Grid
+            Grid.Row="1"
+            ColumnDefinitions="*,15,200">
+            <ScrollViewer
+                Grid.Column="0"
+                HorizontalScrollBarVisibility="Disabled"
+                VerticalScrollBarVisibility="Auto">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock
+                        Margin="0 0 0 20"
+                        Classes="Subtitle1"
+                        TextWrapping="Wrap"
+                        Text="{Binding Game.Description}" />
+
+                    <Grid ColumnDefinitions="*,*,*">
+                        <StackPanel
+                            Grid.Column="0"
+                            Orientation="Vertical"
+                            Margin="0 0 10 10"
+                            IsVisible="{Binding HasTags}">
+                            <TextBlock
+                                Margin="0 0 0 10"
+                                Classes="Headline6"
+                                Text="Теги" />
+                            <controls:Card>
+                                <ItemsControl
+                                    ItemsSource="{Binding Tags}"
+                                    ItemTemplate="{StaticResource Attribute}" />
+                            </controls:Card>
+                        </StackPanel>
+
+                        <StackPanel
+                            Grid.Column="1"
+                            Orientation="Vertical"
+                            Margin="0 0 10 10"
+                            IsVisible="{Binding HasFeatures}">
+                            <TextBlock
+                                Margin="0 0 0 10"
+                                Classes="Headline6"
+                                Text="Особенности" />
+                            <controls:Card>
+                                <ItemsControl
+                                    ItemsSource="{Binding Features}"
+                                    ItemTemplate="{StaticResource Attribute}" />
+                            </controls:Card>
+                        </StackPanel>
+
+                        <StackPanel
+                            Grid.Column="2"
+                            Orientation="Vertical"
+                            Margin="0 0 10 10"
+                            IsVisible="{Binding HasTranslators}">
+                            <TextBlock
+                                Margin="0 0 0 10"
+                                Classes="Headline6"
+                                Text="Переводчики" />
+                            <controls:Card>
+                                <ItemsControl
+                                    ItemsSource="{Binding Translators}"
+                                    ItemTemplate="{StaticResource Attribute}" />
+                            </controls:Card>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </ScrollViewer>
+            <Grid
+                Grid.Column="2"
+                Width="200"
+                RowDefinitions="Auto,*,Auto">
+                <StackPanel Grid.Row="0" Orientation="Vertical">
+                    <TextBlock
+                        Margin="0 0 0 10"
+                        Classes="Subtitle1">
+                        <Run FontWeight="Bold" Text="Игроков:" />
+                        <Run Text="{Binding Game.Players.From}" />
+                        <Run Text=" - " />
+                        <Run Text="{Binding Game.Players.To}" />
+                    </TextBlock>
+
+                    <TextBlock
+                        Margin="0 0 0 10"
+                        Classes="Subtitle1">
+                        <Run FontWeight="Bold" Text="Время:" />
+                        <Run Text="{Binding Game.Duration}" />
+                        <Run Text="мин" />
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Grid.Row="2" Orientation="Vertical">
+                    <TextBlock
+                        IsVisible="{Binding Game.ShowBuild}"
+                        Margin="0 0 0 10"
+                        Classes="Subtitle1">
+                        <Run FontWeight="Bold" Text="Билд:" />
+                        <Run Text="{Binding Game.Build}" />
+                    </TextBlock>
+
+                    <TextBlock
+                        IsVisible="{Binding Game.ShowVersion}"
+                        Margin="0 0 0 10"
+                        Classes="Subtitle1">
+                        <Run FontWeight="Bold" Text="Версия:" />
+                        <Run Text="{Binding Game.Version}" />
+                    </TextBlock>
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <StackPanel
+            Grid.Row="2"
+            Margin="0 0 0 0"
+            Orientation="Horizontal"
+            HorizontalAlignment="Right">
+            <Button
+                Theme="{StaticResource MaterialFlatButton}"
+                Margin="0 0 0 0"
+                Command="{Binding RelativeSource={RelativeSource FindAncestor, 
+                    AncestorType=dialogHostAvalonia:DialogHost}, Path=CloseDialogCommand}">
+                Закрыть
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,35 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:themes="clr-namespace:Material.Styles.Themes;assembly=Material.Styles"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+             x:Class="NeoBoxLauncher.App">
+    <Application.Styles>
+        <themes:MaterialTheme BaseTheme="Dark" PrimaryColor="Purple" SecondaryColor="Lime" />
+        <avalonia:MaterialIconStyles />
+        <dialogHostAvalonia:DialogHostStyles />
+
+        <Style Selector="Button.danger">
+            <Setter Property="Foreground" Value="Red" />
+        </Style>
+
+        <Style Selector="ToolTip TextBlock.header">
+            <Setter Property="FontSize" Value="19" />
+        </Style>
+
+        <Style Selector="ToolTip TextBlock.body">
+            <Setter Property="FontSize" Value="15" />
+        </Style>
+    </Application.Styles>
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="/Templates/Game.axaml" />
+                <ResourceInclude Source="/Templates/Site.axaml" />
+                <ResourceInclude Source="/Templates/Tab.axaml" />
+                <ResourceInclude Source="/Templates/Attribute.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,63 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dialogs="clr-namespace:NeoBoxLauncher.ViewModels.Dialogs"
+             xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+             xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+             xmlns:converters="clr-namespace:NeoBoxLauncher.Extensions.Converters"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="NeoBoxLauncher.Dialogs.SettingsDialog"
+             Padding="10">
+    <d:UserControl.DataContext>
+        <dialogs:SettingsDialogViewModel />
+    </d:UserControl.DataContext>
+
+    <UserControl.Resources>
+        <converters:ServerValueConverter x:Key="ServerValueConverter" />
+    </UserControl.Resources>
+
+    <StackPanel Margin="10" MinWidth="400">
+        <TextBlock
+            Margin="0 0 0 20"
+            Classes="Headline6"
+            VerticalAlignment="Center"
+            Text="Настройки" />
+
+        <ToggleSwitch
+            Margin="0 0 0 20"
+            IsChecked="{Binding SettingsService.ThemeDark}">
+            <TextBlock
+                Margin="10 0 0 0"
+                Text="Тёмная тема" />
+        </ToggleSwitch>
+
+        <DockPanel
+            Margin="0 0 0 20">
+            <TextBlock
+                DockPanel.Dock="Left"
+                Margin="0 0 10 0"
+                Text="Сервер" />
+            <ComboBox
+                Margin="0 -15 0 0"
+                VerticalContentAlignment="Center"
+                ItemsSource="{Binding Config.Servers}"
+                SelectedItem="{Binding SettingsService.ServerUrl}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type sys:String}">
+                        <TextBlock
+                            Text="{Binding Converter={StaticResource ServerValueConverter}}"
+                            VerticalAlignment="Center" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </DockPanel>
+
+        <Button
+            Theme="{StaticResource MaterialFlatButton}"
+            Command="{Binding RelativeSource={RelativeSource FindAncestor, 
+                    AncestorType=dialogHostAvalonia:DialogHost}, Path=CloseDialogCommand}">
+            Закрыть
+        </Button>
+    </StackPanel>
+</UserControl>

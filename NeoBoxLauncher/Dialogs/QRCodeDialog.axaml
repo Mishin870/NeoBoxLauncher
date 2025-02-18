@@ -1,0 +1,26 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+             xmlns:dialogs="clr-namespace:NeoBoxLauncher.ViewModels.Dialogs"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="NeoBoxLauncher.Dialogs.QRCodeDialog">
+    <d:UserControl.DataContext>
+        <dialogs:QRCodeDialogViewModel />
+    </d:UserControl.DataContext>
+
+    <StackPanel Margin="10">
+        <Image
+            Width="{Binding QRWidth}"
+            Height="{Binding QRHeight}"
+            Source="{Binding DataImage}" />
+        <Button
+            Theme="{StaticResource MaterialFlatButton}"
+            Margin="0 16 0 0"
+            Command="{Binding RelativeSource={RelativeSource FindAncestor, 
+                    AncestorType=dialogHostAvalonia:DialogHost}, Path=CloseDialogCommand}">
+            Закрыть
+        </Button>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,88 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:Material.Styles.Controls;assembly=Material.Styles"
+                    xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+                    xmlns:extensions="clr-namespace:NeoBoxLauncher.Extensions"
+                    xmlns:commands="clr-namespace:NeoBoxLauncher.Commands"
+                    xmlns:di="clr-namespace:NeoBoxLauncher.Extensions.DI"
+                    xmlns:common="clr-namespace:NeoBoxLauncher.Data.Common">
+    <DataTemplate x:Key="Game" DataType="common:Game">
+        <extensions:ClickableCommand
+            Command="{di:GetService {x:Type commands:OpenGameCardCommand}}"
+            CommandParameter="{Binding }">
+            <controls:Card
+                x:Name="GameCard"
+                Cursor="Hand"
+                Width="220"
+                Height="100"
+                Padding="4"
+                Margin="5"
+                VerticalAlignment="Top">
+                <controls:Card.Styles>
+                    <Style Selector="controls|Card :is(Visual).shade">
+                        <Setter Property="Opacity" Value="0" />
+                        <Setter Property="Transitions">
+                            <Transitions>
+                                <DoubleTransition Property="Opacity" Duration="0:0:0.2" />
+                            </Transitions>
+                        </Setter>
+                    </Style>
+                    <Style Selector="controls|Card:pointerover :is(Visual).shade.visible">
+                        <Setter Property="Opacity" Value="1" />
+                    </Style>
+                </controls:Card.Styles>
+
+                <Grid ColumnDefinitions="*" RowDefinitions="*">
+                    <Image
+                        Source="{Binding ImageCached.Bitmap}"
+                        Width="{Binding Width, ElementName=GameCard}"
+                        Height="{Binding Height, ElementName=GameCard}"
+                        IsVisible="{Binding ImageCached.Exist}"
+                        Stretch="UniformToFill" />
+
+                    <Image
+                        Classes="shade"
+                        Classes.visible="{Binding ImageCached.Exist}"
+                        Source="{Binding ResourceService.BitmapBack}"
+                        Width="{Binding Width, ElementName=GameCard}"
+                        Height="{Binding Height, ElementName=GameCard}"
+                        Stretch="Fill" />
+
+                    <StackPanel Classes="visible" Classes.shade="{Binding ImageCached.Exist}">
+                        <StackPanel Margin="8">
+                            <TextBlock
+                                Classes="Headline6"
+                                Text="{Binding Title}" />
+                            <TextBlock
+                                Classes="Body2"
+                                Text="{Binding Description}"
+                                MaxLines="1" />
+                        </StackPanel>
+                        <Grid ColumnDefinitions="Auto,*,Auto">
+                            <Button
+                                Grid.Column="0"
+                                Command="{di:GetService {x:Type commands:LaunchGameCommand}}"
+                                CommandParameter="{Binding }"
+                                Classes="Flat"
+                                Content="Запустить" />
+                            <Button
+                                Grid.Column="2"
+                                Command="{di:GetService {x:Type commands:LikeGameCommand}}"
+                                CommandParameter="{Binding }"
+                                Classes="Flat">
+                                <avalonia:MaterialIcon
+                                    Kind="{Binding FavoriteIcon}"
+                                    Width="24" Height="24" />
+                                <ToolTip.Tip>
+                                    <StackPanel>
+                                        <TextBlock Classes="header">Избранное</TextBlock>
+                                    </StackPanel>
+                                </ToolTip.Tip>
+                            </Button>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </controls:Card>
+        </extensions:ClickableCommand>
+    </DataTemplate>
+</ResourceDictionary>

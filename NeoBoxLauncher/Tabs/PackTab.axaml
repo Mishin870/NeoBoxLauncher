@@ -1,0 +1,124 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:Material.Styles.Controls;assembly=Material.Styles"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:tabs="clr-namespace:NeoBoxLauncher.ViewModels.Tabs"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="NeoBoxLauncher.Tabs.PackTab"
+             Loaded="Control_OnLoaded"
+             Unloaded="Control_OnUnloaded">
+    <d:UserControl.DataContext>
+        <tabs:PackTabViewModel />
+    </d:UserControl.DataContext>
+    <DockPanel LastChildFill="True">
+        <controls:ColorZone DockPanel.Dock="Top" MinHeight="56">
+            <Grid ColumnDefinitions="*" RowDefinitions="*">
+                <Image
+                    Source="{Binding Pack.ImageCached.Bitmap}"
+                    Height="{Binding LogoHeight}"
+                    Stretch="UniformToFill" />
+
+                <Image
+                    Source="{Binding ResourceService.BitmapFade}"
+                    Height="{Binding LogoHeight}"
+                    Stretch="Fill" />
+
+                <Border
+                    VerticalAlignment="Bottom"
+                    Padding="12">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <StackPanel
+                            Grid.Column="0"
+                            Orientation="Horizontal">
+                            <TextBlock
+                                Margin="0 0 10 0"
+                                Classes="Headline6"
+                                VerticalAlignment="Center"
+                                Text="{Binding Pack.Title}" />
+                            <Button
+                                IsVisible="{Binding CanLaunch}"
+                                Click="PackLaunch_OnClick"
+                                Theme="{StaticResource MaterialFlatButton}"
+                                Width="32" Height="32" Padding="4">
+                                <avalonia:MaterialIcon Kind="Play" Width="24" Height="24" />
+                                <ToolTip.Tip>
+                                    <StackPanel>
+                                        <TextBlock Classes="header">Запустить</TextBlock>
+                                    </StackPanel>
+                                </ToolTip.Tip>
+                            </Button>
+                        </StackPanel>
+                        <StackPanel
+                            Name="PackControls"
+                            Grid.Column="1"
+                            Orientation="Horizontal">
+                            <Button
+                                Name="Filter"
+                                Click="Filter_OnClick"
+                                Theme="{StaticResource MaterialFlatButton}"
+                                Width="32" Height="32" Padding="4">
+                                <avalonia:MaterialIcon Kind="Filter" Width="24" Height="24" />
+                                <ToolTip.Tip>
+                                    <StackPanel>
+                                        <TextBlock Classes="header">Фильтры</TextBlock>
+                                    </StackPanel>
+                                </ToolTip.Tip>
+                            </Button>
+                            <Button
+                                Name="PackShowDirectory"
+                                Click="PackShowDirectory_OnClick"
+                                Theme="{StaticResource MaterialFlatButton}"
+                                Width="32" Height="32" Padding="4">
+                                <avalonia:MaterialIcon Kind="Folder" Width="24" Height="24" />
+                                <ToolTip.Tip>
+                                    <StackPanel>
+                                        <TextBlock Classes="header">Открыть расположение</TextBlock>
+                                    </StackPanel>
+                                </ToolTip.Tip>
+                            </Button>
+                            <Button
+                                Name="PackDelete"
+                                IsVisible="{Binding !Pack.IsBundled}"
+                                Click="PackDelete_OnClick"
+                                Theme="{StaticResource MaterialFlatButton}"
+                                Width="32" Height="32" Padding="4">
+                                <avalonia:MaterialIcon Kind="Trash" Width="24" Height="24" />
+                                <ToolTip.Tip>
+                                    <StackPanel>
+                                        <TextBlock Classes="header">Удалить</TextBlock>
+                                    </StackPanel>
+                                </ToolTip.Tip>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+        </controls:ColorZone>
+        <Grid
+            ColumnDefinitions="*"
+            RowDefinitions="*">
+            <ScrollViewer
+                IsVisible="{Binding !QueryView.Empty}"
+                HorizontalScrollBarVisibility="Disabled"
+                VerticalScrollBarVisibility="Auto">
+                <ItemsRepeater
+                    Name="GamesList"
+                    Margin="15"
+                    ItemsSource="{Binding QueryView.Games}"
+                    ItemTemplate="{StaticResource Game}">
+                    <ItemsRepeater.Layout>
+                        <WrapLayout />
+                    </ItemsRepeater.Layout>
+                </ItemsRepeater>
+            </ScrollViewer>
+            <TextBlock
+                IsVisible="{Binding QueryView.Empty}"
+                Classes="Headline6"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Text="Пусто.." />
+        </Grid>
+    </DockPanel>
+</UserControl>

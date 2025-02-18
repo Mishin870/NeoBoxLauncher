@@ -1,0 +1,39 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+             xmlns:dialogs="clr-namespace:NeoBoxLauncher.ViewModels.Dialogs"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="NeoBoxLauncher.Dialogs.PackDeleteDialog"
+             Padding="10">
+    <d:UserControl.DataContext>
+        <dialogs:PackDeleteDialogViewModel />
+    </d:UserControl.DataContext>
+
+    <StackPanel Margin="10">
+        <TextBlock
+            Margin="0 0 0 20"
+            Classes="Subtitle1"
+            VerticalAlignment="Center"
+            Text="{Binding Prompt}" />
+        <StackPanel
+            Orientation="Horizontal"
+            HorizontalAlignment="Right">
+            <Button
+                Theme="{StaticResource MaterialFlatButton}"
+                Classes="danger"
+                Margin="0 0 10 0"
+                Name="PackDeleteConfirm"
+                Click="PackDeleteConfirm_OnClick">
+                Да
+            </Button>
+            <Button
+                Theme="{StaticResource MaterialFlatButton}"
+                Command="{Binding RelativeSource={RelativeSource FindAncestor, 
+                    AncestorType=dialogHostAvalonia:DialogHost}, Path=CloseDialogCommand}">
+                Нет
+            </Button>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

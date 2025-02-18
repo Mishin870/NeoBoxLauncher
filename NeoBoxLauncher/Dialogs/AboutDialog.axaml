@@ -1,0 +1,109 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+             xmlns:dialogs="clr-namespace:NeoBoxLauncher.ViewModels.Dialogs"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="NeoBoxLauncher.Dialogs.AboutDialog"
+             Padding="10">
+    <d:UserControl.DataContext>
+        <dialogs:AboutDialogViewModel />
+    </d:UserControl.DataContext>
+
+    <UserControl.Resources>
+        <Geometry x:Key="AppIconGeometry">F1 M24,24z M0,0z M2,10.96C1.5,10.68,1.35,10.07,1.63,9.59L3.13,7C3.24,6.8,3.41,6.66,3.6,6.58L11.43,2.18C11.59,2.06 11.79,2 12,2 12.21,2 12.41,2.06 12.57,2.18L20.47,6.62C20.66,6.72,20.82,6.88,20.91,7.08L22.36,9.6C22.64,10.08,22.47,10.69,22,10.96L21,11.54 21,16.5C21,16.88,20.79,17.21,20.47,17.38L12.57,21.82C12.41,21.94 12.21,22 12,22 11.79,22 11.59,21.94 11.43,21.82L3.53,17.38C3.21,17.21,3,16.88,3,16.5L3,10.96C2.7,11.13,2.32,11.14,2,10.96 M12,4.15L12,4.15 12,10.85 12,10.85 17.96,7.5 12,4.15 M5,15.91L11,19.29 11,12.58 5,9.21 5,15.91 M19,15.91L19,12.69 14,15.59C13.67,15.77,13.3,15.76,13,15.6L13,19.29 19,15.91 M13.85,13.36L20.13,9.73 19.55,8.72 13.27,12.35 13.85,13.36z</Geometry>
+        
+        <DrawingGroup x:Key="AppIconDrawingGroupLight" ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+            <GeometryDrawing
+                Geometry="{StaticResource AppIconGeometry}"
+                Brush="#FF000000" />
+        </DrawingGroup>
+        <DrawingImage x:Key="AppIconDrawingImageLight" Drawing="{StaticResource AppIconDrawingGroupLight}"/>
+        
+        <DrawingGroup x:Key="AppIconDrawingGroupDark" ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+            <GeometryDrawing
+                Geometry="{StaticResource AppIconGeometry}"
+                Brush="#FFFFFFFF" />
+        </DrawingGroup>
+        <DrawingImage x:Key="AppIconDrawingImageDark" Drawing="{StaticResource AppIconDrawingGroupDark}"/>
+    </UserControl.Resources>
+
+    <StackPanel Margin="10" MinWidth="300">
+        <StackPanel Margin="0 0 0 20">
+            <StackPanel Orientation="Horizontal" Margin="0 0 0 20" HorizontalAlignment="Center">
+                <Image
+                    Width="32"
+                    Height="32"
+                    VerticalAlignment="Center"
+                    Margin="0 0 10 0"
+                    Source="{Binding AppIcon}" />
+
+                <TextBlock
+                    Classes="Headline4"
+                    VerticalAlignment="Center"
+                    Text="NeoBox" />
+            </StackPanel>
+
+            <StackPanel Margin="0 0 0 0">
+                <TextBlock
+                    Margin="0 0 0 20"
+                    Classes="Subtitle1">
+                    <Run>Автор </Run>
+                    <Run FontWeight="Bold">Mishin870</Run>
+                </TextBlock>
+                <TextBlock
+                    Margin="0 0 0 20"
+                    Classes="Subtitle1">
+                    <Run>Задумывался как лаунчер для своего удобства</Run>
+                    <LineBreak />
+                    <Run>Разработано с душой &lt;3</Run>
+                </TextBlock>
+                <TextBlock
+                    Margin="0 0 0 5"
+                    Classes="Subtitle1">
+                    <Run>Баги, идеи и вопросы можете отправлять сюда:</Run>
+                </TextBlock>
+                <StackPanel
+                    Orientation="Horizontal">
+                    <HyperlinkButton
+                        Padding="5"
+                        HorizontalAlignment="Left"
+                        Theme="{StaticResource MaterialFlatButton}"
+                        NavigateUri="https://t.me/Mishin870">
+                        <Image
+                            Width="32"
+                            Height="32"
+                            Source="/Images/telegram.png" />
+                        <ToolTip.Tip>
+                            <StackPanel>
+                                <TextBlock Classes="header">@Mishin870</TextBlock>
+                            </StackPanel>
+                        </ToolTip.Tip>
+                    </HyperlinkButton>
+                    <HyperlinkButton
+                        Padding="5"
+                        HorizontalAlignment="Left"
+                        Theme="{StaticResource MaterialFlatButton}"
+                        NavigateUri="https://github.com/Mishin870/NeoBoxLauncher">
+                        <Image
+                            Width="32"
+                            Height="32"
+                            Source="/Images/github.png" />
+                        <ToolTip.Tip>
+                            <StackPanel>
+                                <TextBlock Classes="header">Mishin870/NeoBoxLauncher</TextBlock>
+                            </StackPanel>
+                        </ToolTip.Tip>
+                    </HyperlinkButton>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <Button
+            Theme="{StaticResource MaterialFlatButton}"
+            Command="{Binding RelativeSource={RelativeSource FindAncestor, 
+                    AncestorType=dialogHostAvalonia:DialogHost}, Path=CloseDialogCommand}">
+            Закрыть
+        </Button>
+    </StackPanel>
+</UserControl>

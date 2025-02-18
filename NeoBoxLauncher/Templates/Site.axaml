@@ -1,0 +1,58 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:Material.Styles.Controls;assembly=Material.Styles"
+                    xmlns:commands="clr-namespace:NeoBoxLauncher.Commands"
+                    xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+                    xmlns:di="clr-namespace:NeoBoxLauncher.Extensions.DI"
+                    xmlns:common="clr-namespace:NeoBoxLauncher.Data.Common">
+    <DataTemplate x:Key="Site" DataType="common:Site">
+        <controls:Card
+            Width="220"
+            Height="100"
+            Margin="5"
+            Padding="4"
+            VerticalAlignment="Top">
+            <StackPanel>
+                <StackPanel Margin="8">
+                    <TextBlock Classes="Headline6" Text="{Binding Title}" />
+                    <TextBlock Classes="Body2" Text="{Binding Url}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button
+                        Command="{di:GetService {x:Type commands:LaunchSiteCommand}}"
+                        CommandParameter="{Binding }"
+                        Classes="Flat">
+                        <avalonia:MaterialIcon Kind="Play" />
+                        <ToolTip.Tip>
+                            <StackPanel>
+                                <TextBlock Classes="header">Открыть в браузере</TextBlock>
+                            </StackPanel>
+                        </ToolTip.Tip>
+                    </Button>
+                    <Button
+                        Command="{di:GetService {x:Type commands:CopySiteCommand}}"
+                        CommandParameter="{Binding }"
+                        Classes="Flat">
+                        <avalonia:MaterialIcon Kind="ContentCopy" />
+                        <ToolTip.Tip>
+                            <StackPanel>
+                                <TextBlock Classes="header">Скопировать адрес</TextBlock>
+                            </StackPanel>
+                        </ToolTip.Tip>
+                    </Button>
+                    <Button
+                        Command="{di:GetService {x:Type commands:QRSiteCommand}}"
+                        CommandParameter="{Binding }"
+                        Classes="Flat">
+                        <avalonia:MaterialIcon Kind="Qrcode" />
+                        <ToolTip.Tip>
+                            <StackPanel>
+                                <TextBlock Classes="header">QR код</TextBlock>
+                            </StackPanel>
+                        </ToolTip.Tip>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </controls:Card>
+    </DataTemplate>
+</ResourceDictionary>

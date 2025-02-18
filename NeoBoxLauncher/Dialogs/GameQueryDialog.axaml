@@ -1,0 +1,238 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dialogs="clr-namespace:NeoBoxLauncher.ViewModels.Dialogs"
+             xmlns:ui="clr-namespace:NeoBoxLauncher.Extensions.UI"
+             xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="NeoBoxLauncher.Dialogs.GameQueryDialog"
+             Padding="10">
+    <d:UserControl.DataContext>
+        <dialogs:GameQueryDialogViewModel />
+    </d:UserControl.DataContext>
+
+    <UserControl.Resources>
+        <DataTemplate x:Key="EnumCheckbox" DataType="ui:EnumCheckbox">
+            <ToggleSwitch
+                Margin="0 0 0 10"
+                IsChecked="{Binding Value.Value}">
+                <TextBlock
+                    Margin="10 0 0 0"
+                    Text="{Binding Title}" />
+            </ToggleSwitch>
+        </DataTemplate>
+        <DataTemplate x:Key="EnumCheckboxNullable" DataType="ui:EnumCheckboxNullable">
+            <CheckBox
+                Margin="0 0 0 10"
+                Content="{Binding Title}"
+                IsThreeState="True"
+                IsChecked="{Binding Value.Value}" />
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <StackPanel Margin="10">
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Vertical" Margin="10 0 10 0" MinWidth="200">
+                <TextBlock
+                    Margin="0 0 0 20"
+                    Classes="Headline6"
+                    VerticalAlignment="Center"
+                    Text="Теги" />
+
+                <StackPanel
+                    Margin="0 0 0 20"
+                    Orientation="Horizontal">
+                    <Button
+                        Theme="{StaticResource MaterialFlatButton}"
+                        Margin="0 0 10 0"
+                        Click="TagsAll_OnClick">
+                        Всё
+                    </Button>
+                    <Button
+                        Theme="{StaticResource MaterialFlatButton}"
+                        Margin="0 0 0 0"
+                        Click="TagsNothing_OnClick">
+                        Ничего
+                    </Button>
+                </StackPanel>
+
+                <ScrollViewer
+                    HorizontalScrollBarVisibility="Disabled"
+                    VerticalScrollBarVisibility="Auto">
+                    <ItemsRepeater
+                        ItemsSource="{Binding Tags}"
+                        ItemTemplate="{StaticResource EnumCheckbox}">
+                        <ItemsRepeater.Layout>
+                            <StackLayout Orientation="Vertical" />
+                        </ItemsRepeater.Layout>
+                    </ItemsRepeater>
+                </ScrollViewer>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Margin="10 0 10 0" MinWidth="200">
+                <TextBlock
+                    Margin="0 0 0 20"
+                    Classes="Headline6"
+                    VerticalAlignment="Center"
+                    Text="Переводчики" />
+
+                <StackPanel
+                    Margin="0 0 0 20"
+                    Orientation="Horizontal">
+                    <Button
+                        Theme="{StaticResource MaterialFlatButton}"
+                        Margin="0 0 10 0"
+                        Click="TranslatorsAll_OnClick">
+                        Всё
+                    </Button>
+                    <Button
+                        Theme="{StaticResource MaterialFlatButton}"
+                        Margin="0 0 0 0"
+                        Click="TranslatorsNothing_OnClick">
+                        Ничего
+                    </Button>
+                </StackPanel>
+
+                <ScrollViewer
+                    HorizontalScrollBarVisibility="Disabled"
+                    VerticalScrollBarVisibility="Auto">
+                    <ItemsRepeater
+                        ItemsSource="{Binding Translators}"
+                        ItemTemplate="{StaticResource EnumCheckbox}">
+                        <ItemsRepeater.Layout>
+                            <StackLayout Orientation="Vertical" />
+                        </ItemsRepeater.Layout>
+                    </ItemsRepeater>
+                </ScrollViewer>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Margin="10 0 10 0" MinWidth="200">
+                <TextBlock
+                    Margin="0 0 0 20"
+                    Classes="Headline6"
+                    VerticalAlignment="Center"
+                    Text="Тип игры" />
+
+                <StackPanel
+                    Margin="0 0 0 20"
+                    Orientation="Horizontal">
+                    <Button
+                        Theme="{StaticResource MaterialFlatButton}"
+                        Margin="0 0 10 0"
+                        Click="GameTypesAll_OnClick">
+                        Всё
+                    </Button>
+                    <Button
+                        Theme="{StaticResource MaterialFlatButton}"
+                        Margin="0 0 0 0"
+                        Click="GameTypesNothing_OnClick">
+                        Ничего
+                    </Button>
+                </StackPanel>
+
+                <ScrollViewer
+                    HorizontalScrollBarVisibility="Disabled"
+                    VerticalScrollBarVisibility="Auto">
+                    <ItemsRepeater
+                        ItemsSource="{Binding LaunchTypes}"
+                        ItemTemplate="{StaticResource EnumCheckbox}">
+                        <ItemsRepeater.Layout>
+                            <StackLayout Orientation="Vertical" />
+                        </ItemsRepeater.Layout>
+                    </ItemsRepeater>
+                </ScrollViewer>
+
+                <TextBlock
+                    Margin="0 20 0 20"
+                    Classes="Headline6"
+                    VerticalAlignment="Center"
+                    Text="Особенности" />
+
+                <ScrollViewer
+                    HorizontalScrollBarVisibility="Disabled"
+                    VerticalScrollBarVisibility="Auto">
+                    <ItemsRepeater
+                        ItemsSource="{Binding Features}"
+                        ItemTemplate="{StaticResource EnumCheckboxNullable}">
+                        <ItemsRepeater.Layout>
+                            <StackLayout Orientation="Vertical" />
+                        </ItemsRepeater.Layout>
+                    </ItemsRepeater>
+                </ScrollViewer>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Margin="10 0 10 0" MinWidth="200">
+                <TextBlock
+                    Margin="0 0 0 20"
+                    Classes="Headline6"
+                    VerticalAlignment="Center"
+                    Text="Параметры" />
+
+                <CheckBox
+                    Margin="0 0 0 20"
+                    Content="Количество игроков"
+                    IsChecked="{Binding Query.PlayersFilter.Enabled}" />
+                <Slider
+                    Margin="15 0 0 20"
+                    IsEnabled="{Binding Query.PlayersFilter.Enabled}"
+                    IsSnapToTickEnabled="True"
+                    Classes="Discrete"
+                    TickFrequency="1"
+                    Minimum="1"
+                    Maximum="20"
+                    Value="{Binding Query.PlayersFilter.Players}" />
+
+                <CheckBox
+                    Margin="0 0 0 20"
+                    Content="Время игры (мин)"
+                    IsChecked="{Binding Query.DurationFilter.Enabled}" />
+                <TextBlock
+                    Margin="0 0 0 10"
+                    Classes="Body2"
+                    Text="От" />
+                <Slider
+                    Margin="15 0 0 20"
+                    IsEnabled="{Binding Query.DurationFilter.Enabled}"
+                    IsSnapToTickEnabled="True"
+                    Classes="Discrete"
+                    TickFrequency="1"
+                    Minimum="1"
+                    Maximum="40"
+                    Value="{Binding Query.DurationFilter.DurationFrom}" />
+                <TextBlock
+                    Margin="0 0 0 10"
+                    Classes="Body2"
+                    Text="До" />
+                <Slider
+                    Margin="15 0 0 20"
+                    IsEnabled="{Binding Query.DurationFilter.Enabled}"
+                    IsSnapToTickEnabled="True"
+                    Classes="Discrete"
+                    TickFrequency="1"
+                    Minimum="1"
+                    Maximum="40"
+                    Value="{Binding Query.DurationFilter.DurationTo}" />
+            </StackPanel>
+        </StackPanel>
+        <StackPanel
+            Margin="0 16 0 0"
+            Orientation="Horizontal"
+            HorizontalAlignment="Right">
+            <Button
+                Classes="danger"
+                Theme="{StaticResource MaterialFlatButton}"
+                Margin="0 0 10 0"
+                Click="Reset_OnClick">
+                Очистить
+            </Button>
+            <Button
+                Theme="{StaticResource MaterialFlatButton}"
+                Margin="0 0 0 0"
+                Command="{Binding RelativeSource={RelativeSource FindAncestor, 
+                    AncestorType=dialogHostAvalonia:DialogHost}, Path=CloseDialogCommand}">
+                Применить
+            </Button>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

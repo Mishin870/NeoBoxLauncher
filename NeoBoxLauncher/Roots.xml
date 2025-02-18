@@ -1,0 +1,6 @@
+﻿<linker>
+    <!-- Can be removed if CompiledBinding and no reflection are used -->
+    <assembly fullname="NeoBoxLauncher" preserve="All"/>
+    <assembly fullname="Material.Avalonia" preserve="All"/>
+    <assembly fullname="Material.Icons.Avalonia" preserve="All"/>
+</linker>

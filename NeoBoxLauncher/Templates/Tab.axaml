@@ -1,0 +1,21 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+                    xmlns:common="clr-namespace:NeoBoxLauncher.Data.Common">
+    <DataTemplate x:Key="Tab" DataType="common:Tab">
+        <StackPanel
+            Margin="5"
+            Orientation="Horizontal">
+            <avalonia:MaterialIcon
+                Padding="5"
+                VerticalAlignment="Center"
+                Kind="{Binding Icon}" Width="24" Height="24" />
+            <TextBlock
+                Classes="Headline6"
+                Padding="5"
+                TextAlignment="Left"
+                VerticalAlignment="Center"
+                Text="{Binding Title}" />
+        </StackPanel>
+    </DataTemplate>
+</ResourceDictionary>

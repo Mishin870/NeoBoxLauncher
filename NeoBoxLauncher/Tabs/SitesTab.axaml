@@ -1,0 +1,47 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:Material.Styles.Controls;assembly=Material.Styles"
+             xmlns:tabs="clr-namespace:NeoBoxLauncher.ViewModels.Tabs"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="NeoBoxLauncher.Tabs.SitesTab">
+    <d:UserControl.DataContext>
+        <tabs:SitesTabViewModel />
+    </d:UserControl.DataContext>
+
+    <DockPanel LastChildFill="True">
+        <controls:ColorZone DockPanel.Dock="Top" MinHeight="56">
+            <Grid ColumnDefinitions="*" RowDefinitions="*">
+                <Border
+                    VerticalAlignment="Bottom"
+                    Padding="12">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <StackPanel
+                            Grid.Column="0"
+                            Orientation="Horizontal">
+                            <TextBlock
+                                Margin="0 0 10 0"
+                                Classes="Headline6"
+                                VerticalAlignment="Center"
+                                Text="Сайты" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+        </controls:ColorZone>
+        <ScrollViewer
+            HorizontalScrollBarVisibility="Disabled"
+            VerticalScrollBarVisibility="Auto">
+            <ItemsRepeater
+                Name="SitesList"
+                Margin="15"
+                ItemsSource="{Binding Sites}"
+                ItemTemplate="{StaticResource Site}">
+                <ItemsRepeater.Layout>
+                    <WrapLayout />
+                </ItemsRepeater.Layout>
+            </ItemsRepeater>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:common="clr-namespace:NeoBoxLauncher.Data.Common">
+    <DataTemplate x:Key="Attribute" DataType="common:Attribute">
+        <ListBoxItem
+            HorizontalAlignment="Stretch"
+            Content="{Binding Value}" />
+    </DataTemplate>
+</ResourceDictionary>
